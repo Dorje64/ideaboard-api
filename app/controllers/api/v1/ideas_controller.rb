@@ -7,7 +7,13 @@ module Api::V1
 
     def create
       idea = Idea.create(idea_params)
-      render json: idea_params
+      render json: idea
+    end
+
+    def update
+      idea = Idea.find_by(id: params[:id])
+      idea.update(idea_params)
+      render json: idea
     end
 
     private
