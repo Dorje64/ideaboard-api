@@ -25,6 +25,11 @@ module Api::V1
       end
     end
 
+    def search
+      @ideas = Idea.where('title LIKE ?', "%#{params[:keyword]}%")
+      render json: @ideas
+    end
+
     private
     def idea_params
       params.require(:idea).permit(:title, :body)
