@@ -8,6 +8,7 @@ Rails.application.routes.draw do
           post 'search'
         end
       end
+      resources :conversations
     end
   end
 
