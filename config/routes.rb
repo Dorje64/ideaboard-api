@@ -8,6 +8,8 @@ Rails.application.routes.draw do
           post 'search'
         end
       end
+      resources :conversations
+      resources :messages
     end
   end
 
