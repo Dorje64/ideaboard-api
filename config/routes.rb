@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         end
       end
       resources :conversations
+      resources :messages
     end
   end
 
