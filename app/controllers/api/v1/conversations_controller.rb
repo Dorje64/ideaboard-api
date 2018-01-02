@@ -10,8 +10,8 @@ module Api::V1
     def create
       params = conversation_params
       receiver = User.find_by(email: params[:receiver])
-      responce = @user.send_message(receiver, params[:body], params[:subject])
-      render json: responce.conversation  
+      response = @user.send_message(receiver, params[:body], params[:subject])
+      render json: response.conversation 
     end
 
     def show
