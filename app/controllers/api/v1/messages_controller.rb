@@ -2,6 +2,7 @@ module Api::V1
   class MessagesController < ApplicationController
     before_action :set_user , :set_conversation
     before_action :set_conversation
+    after_action  :broadcast, only: [:create]
 
     def index
       # byebug
@@ -12,9 +13,8 @@ module Api::V1
 
     def create
       # byebug
-      receipt = @user.reply_to_conversation(@conversation, params[:body])
-
-      render json: receipt.message
+      @receipt = @user.reply_to_conversation(@conversation, params[:body])
+      # render json: @receipt.message
     end
 
     private
@@ -24,6 +24,11 @@ module Api::V1
 
     def set_user
       @user = User.find_by(email: params[:uid])
+    end
+
+    def broadcast
+      ActionCable.server.broadcast('chat_channel', message: @receipt.message)
+      # MessageCreationEventBroadcastJob.perform_later(@receipt)
     end
 
     # def message_params
