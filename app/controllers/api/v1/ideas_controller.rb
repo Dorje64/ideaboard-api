@@ -1,7 +1,7 @@
 module Api::V1
   class IdeasController < ApplicationController
     def index
-      @ideas = Idea.all.order(created_at: :desc);
+      @ideas = Idea.all.order(created_at: :desc).page(params[:page].to_i).per(6);
       render json: @ideas
     end
 
