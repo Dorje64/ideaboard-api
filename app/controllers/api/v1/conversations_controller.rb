@@ -3,7 +3,7 @@ module Api::V1
     before_action :set_user
 
     def index
-      @conversations = @user.mailbox.conversations
+      @conversations = @user.mailbox.conversations.page(params[:page].to_i).per(10)
       render json: @conversations
     end
 
@@ -11,7 +11,7 @@ module Api::V1
       params = conversation_params
       receiver = User.find_by(email: params[:receiver])
       response = @user.send_message(receiver, params[:body], params[:subject])
-      render json: response.conversation 
+      render json: response.conversation
     end
 
     def show
