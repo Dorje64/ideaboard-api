@@ -7,6 +7,10 @@ module Api::V1
       render json: @conversations
     end
 
+    def total_conversations
+      render json: @user.mailbox.conversations.count
+    end
+
     def create
       params = conversation_params
       receiver = User.find_by(email: params[:receiver])
