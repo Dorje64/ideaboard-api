@@ -7,9 +7,14 @@ Rails.application.routes.draw do
       resources :ideas do
         collection do
           post 'search'
+          get 'total_ideas'
         end
       end
-      resources :conversations
+      resources :conversations do
+        collection do
+          get 'total_conversations'
+        end
+      end
       resources :messages
     end
   end
