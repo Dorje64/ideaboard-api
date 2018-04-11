@@ -23,7 +23,8 @@ module Api::V1
     def destroy
       idea = Idea.find(params[:id])
       if idea.destroy
-        head :no_content, status: :ok
+        render json: idea
+        # head :no_content, status: :ok
       else
         render json: @idea.errors, status: :unprocessable_entity
       end
